@@ -1,10 +1,10 @@
 // /js/registro.js
 
 import {
-  auth,
   db,
   doc,
   setDoc,
+  getSecondaryAuth,
   createUserWithEmailAndPassword
 } from "../DB/firebaseConfig.js";
 
@@ -28,7 +28,8 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const credenciales = await createUserWithEmailAndPassword(auth, correo, contrasena);
+    const secondaryAuth = getSecondaryAuth();
+    const credenciales = await createUserWithEmailAndPassword(secondaryAuth, correo, contrasena);
     const uid = credenciales.user.uid;
 
     await setDoc(doc(db, "usuarios", uid), {
@@ -40,6 +41,9 @@ form.addEventListener("submit", async (e) => {
       creadoEn: new Date()
     });
 
+    // Cierra sesión de app secundaria para no interferir con la sesión principal
+    await secondaryAuth.signOut();
+
     form.reset();
 
     await Swal.fire({
@@ -50,8 +54,7 @@ form.addEventListener("submit", async (e) => {
       showConfirmButton: false
     });
 
-    window.location.reload();
-
+    // No se recarga, para no perder sesión
   } catch (error) {
     console.error("Error al registrar:", error);
     Swal.fire("Error", error.message || "No se pudo registrar el usuario.", "error");

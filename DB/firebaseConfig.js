@@ -52,6 +52,12 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth();
 
+// ✅ Crear una instancia secundaria de Firebase para registrar sin cerrar sesión actual
+export function getSecondaryAuth() {
+  const secondaryApp = initializeApp(firebaseConfig, "iniciarSesion");
+  return getAuth(secondaryApp);
+}
+
 // Reexportar funciones comunes
 export {
   onAuthStateChanged,
@@ -75,5 +81,5 @@ export {
   deleteObject,
   uploadBytes,
   getDownloadURL,
-  signOut
+  signOut,
 };

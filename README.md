@@ -283,6 +283,31 @@ service firebase.storage {
 }
 
 
+Registro de Usuarios con Sesión Activa
+
+Para evitar que se cierre la sesión del usuario actual al registrar un nuevo usuario, se implementó una estrategia basada en una instancia secundaria de Firebase. Esto permite utilizar una autenticación temporal exclusivamente para el proceso de registro, sin afectar la sesión activa de quien está usando el sistema.
+
+¿Cómo funciona?
+Se creó una segunda app de Firebase llamada "iniciarSesion" dentro del mismo proyecto de Firebase.
+
+En el archivo firebaseConfig.js, se incluyó una función:
+
+export function getSecondaryAuth() {
+  const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+  return getAuth(secondaryApp);
+}
+
+Esta instancia secundaria permite registrar nuevos usuarios usando createUserWithEmailAndPassword() sin desconectar al usuario que está en sesión.
+
+Luego de registrar al usuario, se cierra la sesión secundaria para evitar conflictos y mantener seguridad.
+
+⚠️ Importante
+Esta estrategia es necesaria para el correcto funcionamiento del registro en entornos locales o protegidos, donde cada acción de autenticación puede afectar la sesión global.
+
+La segunda app "iniciarSesion" no necesita estar vinculada al hosting.
+
+
+
 Crear Primer Usuario (Inicialización del Sistema)
 
 Para facilitar la primera ejecución del sistema en entornos nuevos de manera local, se implementó un botón especial llamado "Crear Primer Usuario", ubicado en la página de inicio de sesión (index.html).
@@ -331,6 +356,8 @@ Enlace con capturas del sistema y configuración detallada de la base de datos
 
 Contiene capturas del sistema (manual de usuario): 
 https://drive.google.com/drive/folders/1A9xl8WaUqE0JN-dgKYYRkIXbkonKo2Xs?usp=sharing
+
+
 
 
 
