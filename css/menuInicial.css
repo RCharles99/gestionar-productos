@@ -1,0 +1,25 @@
+
+.btn-menu {
+  background-color: #64748B;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  gap: 10px;
+}
+
+.btn-menu:hover {
+  background-color: #1E3A8A;
+}
+
+.btn-menu img {
+  width: 40px;
+  height: 40px;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}

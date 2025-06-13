@@ -1,0 +1,51 @@
+body {
+  background-color: #D0D0D0 !important;
+}
+
+/* Estilo para títulos principales */
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-transform: uppercase;
+  color: #000;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Estilo para subtítulos */
+h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1E3A8A; /* azul oscuro elegante */
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.navbar-custom {
+  background-color: #64748B !important;
+  height: 70px;
+  color: #fff;
+}
+
+.navbar-custom .btn,
+.navbar-custom span,
+.navbar-custom img {
+  color: #fff;
+}
+
+.navbar-custom .btn-outline-secondary,
+.navbar-custom .btn-outline-danger,
+.navbar-custom .btn-outline-primary {
+  border-color: #fff;
+  color: #fff;
+}
+
+.navbar-custom .btn-outline-secondary:hover,
+.navbar-custom .btn-outline-danger:hover,
+.navbar-custom .btn-outline-primary:hover {
+  background-color: #fff;
+  color: #000;
+}

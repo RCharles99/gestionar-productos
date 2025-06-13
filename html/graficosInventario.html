@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gráficos de Inventario</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/estiloBase.css">
+</head>
+<body class="container py-5">
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <h1 class="text-center mb-4">Reportes y Estadísticas</h1><br><!-- Filtros -->
+
+  <h2 class="mt-4">Filtros de Búsqueda</h2>
+  <div class="card p-3 mb-4 shadow-sm">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">Filtrar por categoría:</label>
+        <select id="filtro-categoria" class="form-select">
+          <option value="todas">Todas</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Ordenar por cantidad:</label>
+        <select id="filtro-orden" class="form-select">
+          <option value="desc">Mayor a menor</option>
+          <option value="asc">Menor a mayor</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Mostrar como:</label>
+        <select id="filtro-formato" class="form-select">
+          <option value="cantidad">Cantidad</option>
+          <option value="porcentaje">Porcentaje</option>
+        </select>
+      </div>
+
+      <div class="col-md-1 text-end">
+        <button id="btn-limpiar-filtros" class="btn btn-outline-secondary w-100">🧹</button>
+      </div>
+    </div>
+
+    <div class="text-center my-4">
+      <button id="exportar-imagen" class="btn btn-primary me-2">Exportar como Imagen</button>
+      <button id="exportar-tabla" class="btn btn-secondary">Exportar como Tabla PDF</button>
+    </div>
+  </div>
+
+
+  <!-- Gráfico de barras -->
+  <div class="mb-5">
+    <h4 class="text-center">Número de productos por categoría</h4>
+    <canvas id="graficoBarras" class="w-100" style="max-height: 400px;"></canvas>
+  </div>
+
+  <!-- Gráfico de dona -->
+  <div>
+    <h4 class="text-center">Distribución de productos por categoría</h4>
+    <canvas id="graficoDona" class="w-100" style="max-height: 400px;"></canvas>
+  </div><br><br><br>
+
+  <h2 class="mt-4">Filtros de Búsqueda</h2>
+
+  <!-- Filtros para gráfico de ventas -->
+  <div class="card p-3 mt-5 mb-4 shadow-sm">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label">Filtrar por categoría de venta:</label>
+        <select id="venta-filtro-categoria" class="form-select">
+          <option value="todas">Todas</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Mostrar:</label>
+        <select id="venta-filtro-metrica" class="form-select">
+          <option value="cantidad">Cantidad Vendida</option>
+          <option value="total">Total de Venta ($)</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label">Formato:</label>
+        <select id="venta-filtro-formato" class="form-select">
+          <option value="cantidad">Cantidad</option>
+          <option value="porcentaje">Porcentaje</option>
+        </select>
+      </div>
+
+      <div class="col-md-1 text-end">
+        <button id="venta-limpiar-filtros" class="btn btn-outline-secondary w-100">🧹</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 my-3">
+      <button id="exportar-ventas-tabla" class="btn btn-outline-primary">Exportar Tabla PDF</button>
+    </div>
+  </div>
+
+  <!-- Gráfico de ventas por producto -->
+  <div class="mt-5">
+    <h4 class="text-center">Productos Vendidos por Categoría</h4>
+    <canvas id="graficoVentas" class="w-100" style="max-height: 400px;"></canvas>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/chart/chart.min.js"></script>
+  <script type="module" src="../js/cargarNavbar.js"></script>
+  <!-- jsPDF para exportar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="../js/graficosInventario.js"></script>
+  <script type="module" src="../js/graficoVentas.js"></script>
+  <script src="../assets/sweetAlert/sweetalert2.all.min.js"></script>
+  <script type="module" src="../js/verificarSesion.js"></script>
+  <script type="module">
+    import { verificarAccesoPermitido } from "../js/verificarRol.js";
+    verificarAccesoPermitido(["Administrador Principal", "Encargado", "Vendedor"]);
+  </script>
+</body>
+</html>
