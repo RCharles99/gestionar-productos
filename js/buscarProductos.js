@@ -2,6 +2,7 @@
 
 import { db, collection, getDocs } from "../DB/firebaseConfig.js";
 import { paginar } from "./paginador.js";
+import { actualizarResumenEstadisticas } from "./listarProductos.js";
 
 const tabla = document.getElementById("tabla-productos");
 const paginacion = document.getElementById("paginacion");
@@ -66,7 +67,16 @@ function aplicarFiltros() {
     filtrados = filtrados.filter(p => p.price >= filtroActivo.rangoMin && p.price <= filtroActivo.rangoMax);
   }
 
+  // 🔴 Mostrar mensaje si no hay resultados
+  const mensaje = document.getElementById("mensaje-filtros");
+  if (filtrados.length === 0) {
+    mensaje.textContent = "No se encontraron productos con los filtros aplicados.";
+  } else {
+    mensaje.textContent = "";
+  }
+
   paginar(filtrados, renderProductos, paginacion);
+  actualizarResumenEstadisticas(filtrados);
 }
 
 function renderProductos(lista) {

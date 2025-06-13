@@ -54,3 +54,18 @@ window.verProducto = function(id) {
 
 // Ejecutar filtro después de cargar productos
 cargarYFiltrarProductos();
+
+// Agregar al final del archivo listarProductos.js
+
+export function actualizarResumenEstadisticas(listaProductos) {
+  const total = listaProductos.length;
+  const promedio =
+    total === 0
+      ? 0
+      : (
+          listaProductos.reduce((acc, p) => acc + parseFloat(p.price), 0) / total
+        ).toFixed(2);
+
+  document.getElementById("total-productos").textContent = `Productos mostrados: ${total}`;
+  document.getElementById("precio-promedio").textContent = `Precio promedio: $${promedio}`;
+}
